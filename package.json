@@ -17,6 +17,7 @@
     "next-auth": "^4.21.1",
     "nuxt": "^3.12.4",
     "prisma": "^5.18.0",
+    "stripe": "^16.8.0",
     "vue": "latest"
   }
 }

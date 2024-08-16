@@ -1,13 +1,23 @@
 <script setup lang="ts">
-const { status, signIn, signOut } = useAuth()
+const handleCheckout = async () => {
+  const PRICE_LOOKUP_KEY = 'monthly_standard'
+
+  const res = await $fetch('/api/stripe/create-checkout-session', {
+    method: 'POST',
+    body: {
+      lookup_key: PRICE_LOOKUP_KEY,
+    },
+  })
+
+  if (res) {
+    await navigateTo(res.url, {
+      external: true,
+    })
+  }
+}
 </script>
 
 <template>
-  <div>You are currently {{ status }}.</div>
-  <div v-if="status === 'authenticated'">
-    <button @click="signOut()">Sign out</button>
-  </div>
-  <div v-else>
-    <button @click="signIn('github')">Sign in with GitHub</button>
-  </div>
+  <AuthButton />
+  <button @click="handleCheckout">Checkout</button>
 </template>
