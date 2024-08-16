@@ -1,6 +1,6 @@
 # Nuxt + Stripe
 
-Welcome to my Nuxt + Stripe tutorial. This repo follows alongside my Youtube series covering how to integrate Stripe into a Nuxt application. 
+Welcome to my Nuxt + Stripe tutorial. This repo follows alongside my [Youtube series](https://www.youtube.com/@codybontecou) covering how to integrate Stripe into a Nuxt application. 
 
 This course covers Authentication with @sidebase/nuxt-auth and Github, Stripe Checkout, Stripe Billing Portal, Stripe Webhooks, Stripe Subscriptions, and more.
 
