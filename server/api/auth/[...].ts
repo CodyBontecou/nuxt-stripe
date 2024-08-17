@@ -14,38 +14,21 @@ export default NuxtAuthHandler({
     ...PrismaAdapter(prisma),
     async linkAccount(account) {
       const user = await prisma.user.findUniqueOrThrow({
-        where: {
-          id: account.userId,
-        },
+        where: { id: account.userId },
       })
 
-      if (user && user.email) {
-        const customer = await stripe.customers.create({
-          email: user.email,
-        })
-
-        const result = await prisma.account.create({
-          data: {
-            ...account,
-            stripe_customer_id: customer.id,
-          },
-          select: {
-            id: true,
-            userId: true,
-            provider: true,
-            type: true,
-            providerAccountId: true,
-            access_token: true,
-            expires_at: true,
-            refresh_token: true,
-            id_token: true,
-            scope: true,
-            token_type: true,
-          },
-        })
-
-        return mapExpiresAt(result)
+      if (!user.email) {
+        throw new Error('User email is required to create a Stripe customer')
       }
+
+      const customer = await stripe.customers.create({ email: user.email })
+
+      return prisma.account.create({
+        data: {
+          ...account,
+          stripe_customer_id: customer.id,
+        },
+      })
     },
   },
   providers: [
