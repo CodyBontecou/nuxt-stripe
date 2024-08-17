@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ['@sidebase/nuxt-auth'],
+  modules: ['@sidebase/nuxt-auth', '@nuxtjs/tailwindcss'],
   runtimeConfig: {
     AUTH_SECRET: process.env.AUTH_SECRET,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
