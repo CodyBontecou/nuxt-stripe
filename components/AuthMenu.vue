@@ -28,7 +28,7 @@ const solutions = [
         class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-min -translate-x-[90%] px-4"
       >
         <div
-          class="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5"
+          class="w-44 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5"
         >
           <template v-for="item in solutions" :key="item.name">
             <NuxtLink
