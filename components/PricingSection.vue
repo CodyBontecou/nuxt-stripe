@@ -3,8 +3,26 @@ import { CheckIcon } from '@heroicons/vue/20/solid'
 
 const { status, signIn } = useAuth()
 
-const handleBuyNow = () => {
+const checkout = async () => {
+  const PRICE_LOOKUP_KEY = 'monthly_standard'
+
+  const res = await $fetch('/api/stripe/create-checkout-session', {
+    method: 'POST',
+    body: {
+      lookup_key: PRICE_LOOKUP_KEY,
+    },
+  })
+
+  if (res) {
+    await navigateTo(res.url, {
+      external: true,
+    })
+  }
+}
+
+const handleBuyNow = async () => {
   if (status.value === 'authenticated') {
+    await checkout()
   } else {
     signIn('github')
   }
