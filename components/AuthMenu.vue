@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 const { data, signOut } = useAuth()
+const { navigateToStripeDashboard } = useStripe()
 
 const solutions = [
-  { name: 'Manage Billing', href: '#' },
+  { name: 'Manage Billing', fn: navigateToStripeDashboard },
   { name: 'Sign Out', fn: signOut },
 ]
 </script>
@@ -30,22 +31,14 @@ const solutions = [
         <div
           class="w-44 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5"
         >
-          <template v-for="item in solutions" :key="item.name">
-            <NuxtLink
-              v-if="item.href"
-              :to="item.href"
-              class="block p-2 hover:text-indigo-600"
-            >
-              {{ item.name }}
-            </NuxtLink>
-            <button
-              v-else-if="item.fn"
-              @click="() => item.fn()"
-              class="block p-2 hover:text-indigo-600"
-            >
-              {{ item.name }}
-            </button>
-          </template>
+          <button
+            v-for="item in solutions"
+            :key="item.name"
+            @click="() => item.fn()"
+            class="block p-2 hover:text-indigo-600"
+          >
+            {{ item.name }}
+          </button>
         </div>
       </PopoverPanel>
     </transition>

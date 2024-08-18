@@ -1,79 +1,28 @@
 <script setup lang="ts">
 import { CheckIcon } from '@heroicons/vue/20/solid'
 
-const { status, signIn } = useAuth()
-
-const checkout = async () => {
-  const PRICE_LOOKUP_KEY = 'monthly_standard'
-
-  const res = await $fetch('/api/stripe/create-checkout-session', {
-    method: 'POST',
-    body: {
-      lookup_key: PRICE_LOOKUP_KEY,
-    },
-  })
-
-  if (res) {
-    await navigateTo(res.url, {
-      external: true,
-    })
-  }
-}
+const { status, signIn, data } = useAuth()
+const { checkout, navigateToStripeDashboard, tiers } = useStripe()
 
 const handleBuyNow = async () => {
-  if (status.value === 'authenticated') {
+  if (data.value?.user?.isSubscribed) {
+    await navigateToStripeDashboard()
+  } else if (status.value === 'authenticated') {
     await checkout()
   } else {
     signIn('github')
   }
 }
 
-const tiers = [
-  {
-    name: 'Freelancer',
-    id: 'tier-freelancer',
-    href: '#',
-    priceMonthly: '$24',
-    description: 'The essentials to provide your best work for clients.',
-    features: [
-      '5 products',
-      'Up to 1,000 subscribers',
-      'Basic analytics',
-      '48-hour support response time',
-    ],
-    mostPopular: false,
-  },
-  {
-    name: 'Startup',
-    id: 'tier-startup',
-    href: '#',
-    priceMonthly: '$32',
-    description: 'A plan that scales with your rapidly growing business.',
-    features: [
-      '25 products',
-      'Up to 10,000 subscribers',
-      'Advanced analytics',
-      '24-hour support response time',
-      'Marketing automations',
-    ],
-    mostPopular: true,
-  },
-  {
-    name: 'Enterprise',
-    id: 'tier-enterprise',
-    href: '#',
-    priceMonthly: '$48',
-    description: 'Dedicated support and infrastructure for your company.',
-    features: [
-      'Unlimited products',
-      'Unlimited subscribers',
-      'Advanced analytics',
-      '1-hour, dedicated support response time',
-      'Marketing automations',
-    ],
-    mostPopular: false,
-  },
-]
+const buttonText = computed(() => {
+  if (data.value?.user?.isSubscribed) {
+    return 'Manage Subscription'
+  } else if (status.value === 'authenticated') {
+    return 'Buy Now'
+  } else {
+    return 'Sign In to Buy'
+  }
+})
 </script>
 
 <template>
@@ -164,7 +113,7 @@ const tiers = [
               'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
             ]"
           >
-            Buy plan
+            {{ buttonText }}
           </button>
         </div>
       </div>

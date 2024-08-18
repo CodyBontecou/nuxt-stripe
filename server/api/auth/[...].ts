@@ -3,6 +3,7 @@ import { NuxtAuthHandler } from '#auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import { stripe } from '~/server/utils/stripe'
+import { getAccountsByEmail } from '~/server/utils/queries/getAccountsByEmail'
 
 const runtimeConfig = useRuntimeConfig()
 const prisma = new PrismaClient()
@@ -37,4 +38,28 @@ export default NuxtAuthHandler({
       clientSecret: runtimeConfig.GITHUB_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    // Adding subscription status to default useAuth data object.
+    async session({ session }) {
+      if (session.user?.email) {
+        const accounts = await getAccountsByEmail(session.user.email)
+
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            isSubscribed: accounts[0].is_subscribed,
+          },
+        }
+      }
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          isSubscribed: undefined,
+        },
+      }
+    },
+  },
 })
