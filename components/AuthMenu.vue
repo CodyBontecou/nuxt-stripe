@@ -13,7 +13,7 @@ const solutions = [
     <PopoverButton
       class="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
     >
-      <AuthAvatar :src="data.user?.image" />
+      <AuthAvatar :src="data?.user?.image" />
     </PopoverButton>
 
     <transition
@@ -39,8 +39,8 @@ const solutions = [
               {{ item.name }}
             </NuxtLink>
             <button
-              v-else
-              @click="item.fn"
+              v-else-if="item.fn"
+              @click="() => item.fn()"
               class="block p-2 hover:text-indigo-600"
             >
               {{ item.name }}
