@@ -8,7 +8,7 @@ export default eventHandler(async event => {
   const body = await readRawBody(event, false)
   let stripeEvent: any = body
   let subscription
-  let status
+  let plan
 
   const signature = getHeader(event, 'stripe-signature')
 
@@ -37,7 +37,6 @@ export default eventHandler(async event => {
   switch (stripeEvent.type) {
     case 'customer.subscription.deleted':
       subscription = stripeEvent.data.object
-      status = subscription.status
 
       await prisma.account.update({
         where: {
@@ -51,7 +50,7 @@ export default eventHandler(async event => {
       break
     case 'customer.subscription.created':
       subscription = stripeEvent.data.object
-      status = subscription.status
+      plan = stripeEvent.data.object.items.data[0].price.lookup_key
 
       await prisma.account.update({
         where: {
@@ -59,6 +58,19 @@ export default eventHandler(async event => {
         },
         data: {
           is_subscribed: true,
+          plan,
+        },
+      })
+    case 'customer.subscription.updated':
+      subscription = stripeEvent.data.object
+      plan = stripeEvent.data.object.items.data[0].price.lookup_key
+
+      await prisma.account.update({
+        where: {
+          stripe_customer_id: subscription.customer,
+        },
+        data: {
+          plan,
         },
       })
 

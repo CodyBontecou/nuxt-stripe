@@ -4,11 +4,11 @@ import { CheckIcon } from '@heroicons/vue/20/solid'
 const { status, signIn, data } = useAuth()
 const { checkout, navigateToStripeDashboard, tiers } = useStripe()
 
-const handleBuyNow = async () => {
+const handleBuyNow = async (lookupKey: string) => {
   if (data.value?.user?.isSubscribed) {
     await navigateToStripeDashboard()
   } else if (status.value === 'authenticated') {
-    await checkout()
+    await checkout(lookupKey)
   } else {
     signIn('github')
   }
@@ -104,7 +104,7 @@ const buttonText = computed(() => {
             </ul>
           </div>
           <button
-            @click="handleBuyNow"
+            @click="() => handleBuyNow(tier.id)"
             :aria-describedby="tier.id"
             :class="[
               tier.mostPopular

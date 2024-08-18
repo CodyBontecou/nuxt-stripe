@@ -41,6 +41,7 @@ model Account {
 
   stripe_customer_id String? @unique
   is_subscribed      Boolean @default(false)
+  plan               String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

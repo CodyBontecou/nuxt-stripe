@@ -1,11 +1,9 @@
 export function useStripe() {
-  const checkout = async () => {
-    const PRICE_LOOKUP_KEY = 'monthly_standard'
-
+  const checkout = async (lookupKey: string) => {
     const res = await $fetch('/api/stripe/create-checkout-session', {
       method: 'POST',
       body: {
-        lookup_key: PRICE_LOOKUP_KEY,
+        lookup_key: lookupKey,
       },
     })
 
