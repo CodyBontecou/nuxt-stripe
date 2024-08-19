@@ -23,6 +23,7 @@ The UI for this project will be built with [Tailwind CSS](https://tailwindcss.co
 I'm using components directly from [TailwindUI](http://tailwindui.com). Because this is a course on Nuxt and Stripe, I won't be explaining much about the UI. I'm just bringing these dependencies in for presentation reasons.
 
 `npx nuxi@latest module add @nuxtjs/tailwindcss`
+
 `npm install @headlessui/vue @heroicons/vue`
 
 ## Stripe Dependencies
