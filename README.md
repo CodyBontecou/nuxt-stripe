@@ -1,75 +1,32 @@
-# Nuxt 3 Minimal Starter
+# Lesson 02 - Installation
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Let's get your project installed and running. This lesson is all about front-loading our dependencies so we don't have to worry about them in later lessons.
 
-## Setup
+## Auth Dependencies
 
-Make sure to install the dependencies:
+We'll be relying on [Nuxt Auth](https://auth.sidebase.io) for our authentication needs. This is a wrapper around Next Auth that makes it easy to use with Nuxt. There is an issue that makes Nuxt Auth reliant on next-auth version 4.21.1, so we'll install that version specifically.
 
-```bash
-# npm
-npm install
+`npm install @auth/core @sidebase/nuxt-auth next-auth@4.21.1`
 
-# pnpm
-pnpm install
+## DB Dependencies
 
-# yarn
-yarn install
+[Prisma](https://www.prisma.io) is my go-to ORM for Node.js projects. It's easy to use and has a great query builder. We'll be using it to interact with our database. 
 
-# bun
-bun install
-```
+If you prefer a different solution, use it. There's nothing specific that Prisma solves that other ORM's and database drivers don't. It's just my preference and what I will be showing in the code snippets.
 
-## Development Server
+`npm install prisma @prisma/client @next-auth/prisma-adapter`
 
-Start the development server on `http://localhost:3000`:
+## UI Dependencies
 
-```bash
-# npm
-npm run dev
+The UI for this project will be built with [Tailwind CSS](https://tailwindcss.com) and [Headless UI](https://headlessui.com). Headless UI is a collection of unstyled, fully accessible UI components, designed to integrate beautifully with Tailwind CSS.
 
-# pnpm
-pnpm run dev
+I'm using components directly from [TailwindUI](http://tailwindui.com). Because this is a course on Nuxt and Stripe, I won't be explaining much about the UI. I'm just bringing these dependencies in for presentation reasons.
 
-# yarn
-yarn dev
+`npx nuxi@latest module add @nuxtjs/tailwindcss`
+`npm install @headlessui/vue @heroicons/vue`
 
-# bun
-bun run dev
-```
+## Stripe Dependencies
 
-## Production
+Stripe is easy. We'll only need one dependency: the Stripe Node.js library.
 
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+`npm install stripe`
