@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { CheckIcon } from '@heroicons/vue/20/solid'
 
+const yearlyEnabled = ref(false)
 const { status, signIn, data } = useAuth()
 const { checkout, navigateToStripeDashboard, tiers } = useStripe()
 
@@ -23,6 +24,12 @@ const buttonText = computed(() => {
     return 'Sign In to Buy'
   }
 })
+
+const filteredTiers = computed(() => {
+  return tiers.filter(tier =>
+    yearlyEnabled.value ? tier.type === 'yearly' : tier.type === 'monthly'
+  )
+})
 </script>
 
 <template>
@@ -44,11 +51,16 @@ const buttonText = computed(() => {
         Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi
         iusto modi velit ut non voluptas in. Explicabo id ut laborum.
       </p>
+
+      <div class="flex items-center justify-center mt-10 -mb-14">
+        <ToggleWithText v-model="yearlyEnabled" />
+      </div>
+
       <div
         class="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
       >
         <div
-          v-for="(tier, tierIdx) in tiers"
+          v-for="(tier, tierIdx) in filteredTiers"
           :key="tier.id"
           :class="[
             tier.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-8',
@@ -79,12 +91,12 @@ const buttonText = computed(() => {
               {{ tier.description }}
             </p>
             <p class="mt-6 flex items-baseline gap-x-1">
-              <span class="text-4xl font-bold tracking-tight text-gray-900">{{
-                tier.priceMonthly
-              }}</span>
-              <span class="text-sm font-semibold leading-6 text-gray-600"
-                >/month</span
-              >
+              <span class="text-4xl font-bold tracking-tight text-gray-900">
+                {{ tier.price }}
+              </span>
+              <span class="text-sm font-semibold leading-6 text-gray-600">
+                {{ yearlyEnabled ? '/year' : '/month' }}
+              </span>
             </p>
             <ul
               role="list"
