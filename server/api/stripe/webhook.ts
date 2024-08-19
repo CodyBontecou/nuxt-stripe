@@ -44,6 +44,7 @@ export default eventHandler(async event => {
         },
         data: {
           is_subscribed: false,
+          plan: 'tier-free',
         },
       })
 

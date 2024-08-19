@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 interface Props {
   src: string | null | undefined
+  plan: string | null | undefined
 }
 
 defineProps<Props>()
@@ -10,6 +11,11 @@ defineProps<Props>()
   <img
     v-if="src"
     class="inline-block h-10 w-10 rounded-full bg-gray-500"
+    :class="{
+      'border-indigo-500 border-2': plan?.includes('tier-freelance'),
+      'border-red-500 border-2': plan?.includes('tier-startup'),
+      'border-green-500 border-2': plan?.includes('tier-enterprise'),
+    }"
     :src="src"
     alt="User avatar"
   />

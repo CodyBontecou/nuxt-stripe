@@ -14,7 +14,7 @@ const solutions = [
     <PopoverButton
       class="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
     >
-      <AuthAvatar :src="data?.user?.image" />
+      <AuthAvatar :src="data?.user?.image" :plan="data?.user?.plan" />
     </PopoverButton>
 
     <transition

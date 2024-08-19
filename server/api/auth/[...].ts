@@ -49,6 +49,7 @@ export default NuxtAuthHandler({
           user: {
             ...session.user,
             isSubscribed: accounts[0].is_subscribed,
+            plan: accounts[0].plan,
           },
         }
       }
@@ -57,7 +58,8 @@ export default NuxtAuthHandler({
         ...session,
         user: {
           ...session.user,
-          isSubscribed: undefined,
+          isSubscribed: false,
+          plan: 'tier-free',
         },
       }
     },
