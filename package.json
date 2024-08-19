@@ -25,7 +25,11 @@
     "vue": "latest"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.8",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "typescript": "^5.5.4"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
   }
 }

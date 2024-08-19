@@ -9,7 +9,7 @@ const runtimeConfig = useRuntimeConfig()
 const prisma = new PrismaClient()
 
 export default NuxtAuthHandler({
-  secret: runtimeConfig.AUTH_SECRET,
+  secret: runtimeConfig.AUTH_SECRET || 'secret',
   adapter: {
     ...PrismaAdapter(prisma),
     async linkAccount(account) {
