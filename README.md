@@ -40,5 +40,7 @@ Stripe is easy. We'll only need one dependency: the Stripe Node.js library.
 You can expedite this running these commands:
 
 `npx nuxi init nuxt-stripe`
+
 `npm install @auth/core @sidebase/nuxt-auth next-auth@4.21.1 prisma @prisma/client @next-auth/prisma-adapter @headlessui/vue @heroicons/vue stripe`
-`npx nuxi@latest module add @nuxtjs/tailwindcss
+
+`npx nuxi@latest module add @nuxtjs/tailwindcss`
