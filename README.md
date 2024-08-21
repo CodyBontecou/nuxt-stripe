@@ -2,6 +2,9 @@
 
 Let's get your project installed and running. This lesson is all about front-loading our dependencies so we don't have to worry about them in later lessons.
 
+Start by creating a Nuxt application if you do not already have one set up. Run the following command to do this:
+
+`npx nuxi init nuxt-stripe`
 ## Auth Dependencies
 
 We'll be relying on [Nuxt Auth](https://auth.sidebase.io) for our authentication needs. This is a wrapper around Next Auth that makes it easy to use with Nuxt. There is an issue that makes Nuxt Auth reliant on next-auth version 4.21.1, so we'll install that version specifically.
@@ -31,3 +34,11 @@ I'm using components directly from [TailwindUI](http://tailwindui.com). Because 
 Stripe is easy. We'll only need one dependency: the Stripe Node.js library.
 
 `npm install stripe`
+
+## TLDR:
+
+You can expedite this running these commands:
+
+`npx nuxi init nuxt-stripe`
+`npm install @auth/core @sidebase/nuxt-auth next-auth@4.21.1 prisma @prisma/client @next-auth/prisma-adapter @headlessui/vue @heroicons/vue stripe`
+`npx nuxi@latest module add @nuxtjs/tailwindcss
