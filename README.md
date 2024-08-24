@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   ...,
   modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth'],
   runtimeConfig: {
-	AUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_SECRET: process.env.AUTH_SECRET,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   }
