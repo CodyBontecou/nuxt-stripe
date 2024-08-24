@@ -8,8 +8,6 @@ export default defineNuxtConfig({
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   },
   auth: {
-    isEnabled: true,
-    disableServerSideAuth: false,
     originEnvKey: 'AUTH_ORIGIN',
     baseURL: 'http://localhost:3000/api/auth',
     provider: {
