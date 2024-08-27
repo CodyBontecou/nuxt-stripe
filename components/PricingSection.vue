@@ -4,7 +4,7 @@ import { CheckIcon } from '@heroicons/vue/20/solid'
 const { status, signIn } = useAuth()
 
 const checkout = async () => {
-  const PRICE_LOOKUP_KEY = 'monthly_standard'
+  const PRICE_LOOKUP_KEY = 'tier-freelancer'
 
   const res = await $fetch('/api/stripe/create-checkout-session', {
     method: 'POST',
