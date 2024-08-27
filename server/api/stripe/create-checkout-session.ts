@@ -6,21 +6,21 @@ const prisma = new PrismaClient()
 const baseUrl = useRuntimeConfig().public.BASE_URL as string
 
 export default eventHandler(async event => {
-  const body = await readBody(event)
-  const session = await getServerSession(event)
+  const { lookup_key } = await readBody(event)
+  const authSession = await getServerSession(event)
 
-  if (session && session.user?.email) {
+  if (authSession && authSession.user?.email) {
     const account = await prisma.account.findFirst({
       where: {
         user: {
-          email: session.user.email,
+          email: authSession.user.email,
         },
       },
     })
 
     if (account && account.stripe_customer_id && !account.is_subscribed) {
       const prices = await stripe.prices.list({
-        lookup_keys: [body.lookup_key],
+        lookup_keys: [lookup_key],
         expand: ['data.product'],
       })
 
